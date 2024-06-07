@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        ComponentName cn = new ComponentName("com.bilibili.fatego", "com.unity3d.player.EmptyClass");
+        ComponentName cn = new ComponentName("com.bilibili.fatego", "com.bilibili.fatego.EmptyClass");
         intent.setComponent(cn);
         startActivity(intent);
     }
