@@ -2,12 +2,14 @@ package com.autostart.bgo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.content.pm.PackageManager;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+    private static final String PACKAGE_NAME = "com.bilibili.fatego";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,18 +18,18 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PushService.class);
         startService(intent);
         setTitle("MainActivity");
+        launchBgo();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        ComponentName cn = new ComponentName("com.bilibili.fatego", "com.bilibili.fatego.EmptyClass");
-        intent.setComponent(cn);
-        startActivity(intent);
-    }
+    private void launchBgo() {
+        PackageManager packageManager = getPackageManager();
+        Intent launchIntent = packageManager.getLaunchIntentForPackage(PACKAGE_NAME);
 
+        if (launchIntent != null) {
+            startActivity(launchIntent);
+        } else {
+            Toast.makeText(this, "命运·冠位指定未安装", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
-
 
